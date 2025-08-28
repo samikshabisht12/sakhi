@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Fix for mobile viewport height issues */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    @apply text-gray-900 dark:text-white transition-colors duration-200;
+    background: linear-gradient(135deg, #4c1d3b 0%, #1f1f2e 30%, #000000 70%, #1f1f2e 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    /* Mobile-specific viewport height fixes */
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    height: 100dvh;
+  }
+
+  body.dark {
+    background: linear-gradient(135deg, #4c1d3b 0%, #1f1f2e 30%, #000000 70%, #1f1f2e 100%);
+    background-attachment: fixed;
+  }
+
+  /* Ensure the root element takes full height */
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* Liquid Glass Chat Bubble Styles */
+  .chat-message {
+    @apply px-4 py-2 rounded-3xl max-w-xs sm:max-w-lg lg:max-w-2xl break-words relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .chat-message.user {
+    @apply ml-auto text-white;
+    background: linear-gradient(135deg,
+      rgba(236, 72, 153, 0.8) 0%,
+      rgba(219, 39, 119, 0.9) 50%,
+      rgba(190, 24, 93, 0.8) 100%);
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    box-shadow:
+      0 8px 32px rgba(236, 72, 153, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .chat-message.assistant {
+    @apply mr-auto text-gray-900 dark:text-white;
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .chat-message.assistant {
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Glass Panel Styles */
+  .glass-panel {
+    @apply backdrop-blur-xl border-0 shadow-2xl rounded-3xl;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass-panel {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Sidebar Item Styles */
+  .sidebar-item {
+    @apply p-3 rounded-full cursor-pointer transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  .sidebar-item.active {
+    background: linear-gradient(135deg,
+      rgba(236, 72, 153, 0.3) 0%,
+      rgba(219, 39, 119, 0.2) 100%);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    box-shadow:
+      0 8px 32px rgba(236, 72, 153, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  /* Button Styles */
+  .glass-button {
+    @apply rounded-full transition-all duration-300 backdrop-blur-lg;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .primary-glass-button {
+    @apply rounded-full transition-all duration-300 backdrop-blur-lg text-white;
+    background: linear-gradient(135deg,
+      rgba(236, 72, 153, 0.8) 0%,
+      rgba(219, 39, 119, 0.9) 100%);
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    box-shadow:
+      0 4px 16px rgba(236, 72, 153, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .primary-glass-button:hover {
+    background: linear-gradient(135deg,
+      rgba(236, 72, 153, 0.9) 0%,
+      rgba(219, 39, 119, 1) 100%);
+    box-shadow:
+      0 8px 32px rgba(236, 72, 153, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* Liquid Glass Submit Button */
+  .liquid-glass-submit {
+    @apply w-full px-6 py-4 rounded-2xl font-semibold transition-all duration-500 text-white relative overflow-hidden;
+    background: rgba(236, 72, 153, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      0 8px 32px rgba(236, 72, 153, 0.3),
+      0 0 40px rgba(236, 72, 153, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(0);
+  }
+
+  .liquid-glass-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+    transition: left 0.8s ease;
+  }
+
+  .liquid-glass-submit:hover {
+    background: rgba(219, 39, 119, 0.95);
+    box-shadow:
+      0 12px 48px rgba(236, 72, 153, 0.4),
+      0 0 60px rgba(236, 72, 153, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .liquid-glass-submit:hover::before {
+    left: 100%;
+  }
+
+  .liquid-glass-submit:active {
+    transform: translateY(0);
+    background: rgba(190, 24, 93, 0.9);
+    box-shadow:
+      0 6px 24px rgba(236, 72, 153, 0.3),
+      0 0 40px rgba(236, 72, 153, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .liquid-glass-submit:disabled {
+    background: rgba(107, 114, 128, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(0);
+    cursor: not-allowed;
+  }
+
+  .liquid-glass-submit:disabled::before {
+    display: none;
+  }
+
+  /* Input Styles */
+  .glass-input {
+    @apply rounded-full backdrop-blur-lg transition-all duration-300;
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-input:focus {
+    @apply outline-none;
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.1) 100%);
+    border: 1px solid rgba(236, 72, 153, 0.4);
+    box-shadow:
+      0 8px 32px rgba(236, 72, 153, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* App Name Styling */
+.app-name {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Custom Pink Scrollbar for Admin Reports List */
+.admin-reports-scroll {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(236, 72, 153, 0.8) transparent; /* Firefox: thumb color, track color */
+}
+
+.admin-reports-scroll::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.admin-reports-scroll::-webkit-scrollbar-track {
+  background: transparent; /* Remove background */
+}
+
+.admin-reports-scroll::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.8); /* Pink thumb */
+  border-radius: 4px; /* Rounded corners */
+  border: none; /* Remove border */
+}
+
+.admin-reports-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 1); /* Darker pink on hover */
+}
+
+.admin-reports-scroll::-webkit-scrollbar-button {
+  display: none; /* Remove arrow buttons */
+}
+
+.admin-reports-scroll::-webkit-scrollbar-corner {
+  background: transparent; /* Remove corner background */
+}
+
+/* Markdown Styling for Chat Messages */
+.chat-message .prose {
+  @apply text-white;
+}
+
+.chat-message .prose h1,
+.chat-message .prose h2,
+.chat-message .prose h3,
+.chat-message .prose h4,
+.chat-message .prose h5,
+.chat-message .prose h6 {
+  @apply text-white font-semibold;
+}
+
+.chat-message .prose code {
+  @apply text-pink-200 bg-black/30;
+}
+
+.chat-message .prose pre {
+  @apply bg-black/40 border-white/20;
+}
+
+.chat-message .prose pre code {
+  @apply text-gray-100 bg-transparent;
+}
+
+.chat-message .prose blockquote {
+  @apply border-l-pink-300 text-white/90;
+}
+
+.chat-message .prose strong {
+  @apply text-white font-semibold;
+}
+
+.chat-message .prose table {
+  @apply text-white/90;
+}
+
+.chat-message .prose th {
+  @apply bg-white/20 text-white font-semibold;
+}
+
+.chat-message .prose td {
+  @apply text-white/80;
+}
+
+/* Override prose defaults for better dark theme */
+.chat-message .prose ul li::marker,
+.chat-message .prose ol li::marker {
+  @apply text-white/70;
+}
+
+/* Mobile viewport utilities */
+@supports (height: 100dvh) {
+  .mobile-screen {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
+@supports not (height: 100dvh) {
+  .mobile-screen {
+    height: 100vh;
+    max-height: 100vh;
+  }
+}
+
+/* Ensure proper scrolling behavior on mobile */
+@media screen and (max-width: 768px) {
+  body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent automatic scrolling when keyboard appears */
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Fix iOS Safari viewport issues */
+  .mobile-safe-area {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* Prevent zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Smooth transitions for keyboard appearance */
+  .chat-container {
+    transition: height 0.2s ease-in-out;
+  }
+
+  /* Prevent viewport from scrolling when keyboard appears */
+  .keyboard-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+  }
+}
